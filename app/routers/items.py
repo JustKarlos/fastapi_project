@@ -20,3 +20,17 @@ def create_item ( item_id : int , item : Item ) :
     raise HTTPException ( status_code =400 , detail ="ID ya,→ existe ")
     items_db [ item_id ] = item . dict ()
 return {" message ": " tem creado ", " item ": item }
+
+@router . put ("/ items /{ item_id }", summary =" Actualizar un tem,→ existente ")
+def update_item ( item_id : int , item : Item ) :
+  if item_id not in items_db :
+    raise HTTPException ( status_code =404 , detail =" Item no,→ encontrado ")
+    items_db [ item_id ] = item . dict ()
+    return {" message ": " tem actualizado ", " item ": item }
+    
+@router . delete ("/ items /{ item_id }", summary =" Eliminar un tem,→ ")
+def delete_item ( item_id : int) :
+  if item_id not in items_db :
+    raise HTTPException ( status_code =404 , detail =" Item no,→ encontrado ")
+    del items_db [ item_id ]
+    return {" message ": " tem eliminado "}
